@@ -39,4 +39,11 @@ every node listens on the exposed port, and then forwards the request to the exp
 called ingress. This overlay network is only used when transporting external traffic to the requested services. In this scope, 
 the same internal load balancing strategies described in the previous section are used.
 
+Please Refer the diagram dockerlabs/intermediate/Load Balancing.png 
+
+In this picture, a service is created with two replicas, on the appnet overlay network. We can see that the service is exposed on port 
+8000 on the three nodes. This is great, because traffic destined for app can be forwarded to any node. In this case, 
+there is an external load balancer, that just happens to forward the request to the only node that does not have an instance 
+of the service. This request is handled and forwarded by the IPVS on the third node, which redirects it to one of the actual 
+containers on the cluster for that service, using the ingress network and therefore the aforementioned method of load balancing.
 
